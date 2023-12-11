@@ -1,0 +1,206 @@
+:root {
+  font-size: 62.5%;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+
+body {
+  font-size: 1.6rem;
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+  background-color: #000;
+  color: #fff;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+nav {
+  width: 100%;
+  background-color: #be4444;
+  padding: 1.2rem;
+}
+
+nav ul {
+  display: flex;
+  gap: 5rem;
+  justify-content: center;
+  align-items: center;
+  list-style-type: none;
+}
+
+nav ul li a {
+  text-decoration: none;
+  color: white;
+  font-weight: 700;
+}
+
+h1 {
+  text-align: center;
+  color: #ff0000;
+  margin: 2rem;
+  font-weight: 700;
+}
+
+#criptoContainer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  margin-bottom: 2rem;
+}
+
+#criptoContainer>div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #be4444;
+  border-radius: 0.8rem;
+  box-shadow: 0 0.4rem 0.8rem rgba(0, 0, 0, 0.1);
+  margin: 1rem;
+  padding: 1rem;
+  width: 30rem;
+  box-shadow: 0 0 10px rgb(211, 152, 152);
+  transition: 0.4s;
+}
+
+#criptoContainer>div:hover {
+  transform: scale(1.01);
+}
+
+img {
+  max-width: 50%;
+  height: auto;
+  border-radius: 0.4rem;
+  margin-bottom: 1rem;
+}
+
+#buttonContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+button {
+  width: 6rem;
+  background-color: #ff0000;
+  color: white;
+  padding: 0.3rem;
+  border: none;
+  border-radius: 0.4rem;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #cc0000;
+}
+
+#valorConvertido {
+  width: 37rem;
+  font-weight: bold;
+  margin: 1rem auto;
+  padding: 1rem;
+  border-radius: 0.4rem;
+  border: 0.1rem solid #fff;
+  background-color: #000;
+}
+
+#inputFiltro {
+  width: 22rem;
+  text-align: center;
+  margin: 0.8rem 0;
+  padding: 0.8rem;
+  border-radius: 0.4rem;
+  border: 0.1rem solid #fff;
+  background-color: #000;
+  color: #fff;
+}
+
+#quantidadeInput{
+  width: 12rem;
+  text-align: center;
+  margin: 0.8rem 0;
+  padding: 0.8rem;
+  border-radius: 0.4rem;
+  border: 0.1rem solid #fff;
+  background-color: #000;
+  color: #fff;
+}
+
+select{
+  width: 18rem;
+  height: 3.9rem;
+  text-align: center;
+  margin: 0.8rem 0;
+  padding: 0.8rem;
+  border-radius: 0.4rem;
+  border: 0.1rem solid #fff;
+  background-color: #000;
+  color: #fff;
+  text-align: center;
+}
+
+.data {
+  font-size: 1.8rem;
+}
+
+#descricao {
+  width: 28rem;
+  height: 27rem;
+  padding: 1rem;
+  border-radius: 0.4rem;
+  background-color: #813030;
+  text-align: center;
+  line-height: 2.9rem;
+}
+
+#cotacao {
+  width: 28rem;
+  padding: 0.5rem;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1.5rem;
+  justify-content: center;
+  background-color: #813030;
+  border-radius: 0.4rem;
+  margin-top: 0.5rem;
+}
+
+footer {
+  width: 100%;
+  background-color: #be4444;
+  padding: 1.2rem;
+  display: flex;
+  color: white;
+  font-weight: 700;
+  justify-content: center;
+  align-items: center;
+  margin-top: 2rem; 
+}
+
+@media(max-width: 932px) {
+  img {
+    max-width: 30%;
+  }
+
+  
+  #containerCalculo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  #quantidadeInput, #moedaDestinoSelect, #buttonCalcular, #valorConvertido {
+    width: 23rem;
+    margin: 1rem 0;
+  }
+
+}
