@@ -4,7 +4,7 @@ function obterSimboloMoeda(codigoMoeda) {
     brl: 'R$',
     usd: 'US$',
     eur: '€',
-    cny: '¥',
+    cny: 'CN¥',
   };
   return simbolos[codigoMoeda] || '';
 }
@@ -23,28 +23,27 @@ const criptoInfo = {
   chainlink: { nome: "Chainlink", descricao: "Chainlink é uma plataforma de contratos inteligentes que conecta contratos inteligentes com dados do mundo real. Foi proposto por Sergey Nazarov e lançado em 2017.", logo: "./assets/chainlink.webp", cotacoes: {} },
 };
 
+// Função para limpar os campos de entrada e exibir todos os cards
 function limparInput() {
   document.getElementById('inputFiltro').value = '';
   document.getElementById('quantidadeInput').value = '';
   document.getElementById('moedaDestinoSelect').value = 'select';
 
-  // Reseta o estado dos cards para ficarem visíveis.
   for (const cripto in criptoInfo) {
     document.getElementById(cripto).style.display = 'block';
   }
 
-  // Limpa o valorConvertido
-  document.getElementById('valorConvertido').innerText = 'Resultado:'
+  document.getElementById('valorConvertido').innerText = 'Resultado:';
 }
 
-  // Função busca a cotação das crptomoedas na API coingecko com a biblioteca axios para fazer reuisição HTTP e retornar asinformações em um JSON totlmente manipulável.
-
+// Função assíncrona para obter cotações das criptomoedas da API
 async function obterCotacoes() {
   try {
     const moedas = Object.keys(criptoInfo).join(',');
     const response = await axios.get(`https://api.coingecko.com/api/v3/simple/price?ids=${moedas}&vs_currencies=brl,usd,eur,cny`);
     const data = response.data;
 
+    // Preenchendo as informações de cotações nas criptomoedas
     for (const cripto in criptoInfo) {
       criptoInfo[cripto].cotacoes = {};
       for (const moeda in data[cripto]) {
@@ -56,103 +55,110 @@ async function obterCotacoes() {
   }
 }
 
+// Função para formatar valores monetários
+function formatarValorMonetario(valor, moeda = 'BRL') {
+  return new Intl.NumberFormat('pt-BR', { style: 'currency', currency: moeda }).format(valor);
+}
+
+// Função para exibir os cards das criptomoedas
 function exibirCards() {
   const criptoContainer = document.getElementById('criptoContainer');
-
-  // Obtém a data e hora atual
   const agora = new Date();
-  
-  // Formata a data e hora no formato brasileiro
-  const formatoBrasileiro = agora.toLocaleString('pt-BR');
+  const data = `${agora.getDate().toString().padStart(2, '0')}/${(agora.getMonth() + 1).toString().padStart(2, '0')}/${agora.getFullYear()}`;
+  const hora = `${agora.getHours().toString().padStart(2, '0')}:${agora.getMinutes().toString().padStart(2, '0')}`;
 
-  // For buscando as cotaçõesem real, dólar, euro e yuan
+  // Iterando sobre as criptomoedas
   for (const cripto in criptoInfo) {
     const criptoCard = document.createElement('div');
     criptoCard.id = cripto;
 
-    // Valores da cotação buscados na API
     const cotacoes = criptoInfo[cripto].cotacoes;
-    const brl = parseFloat(cotacoes.brl).toFixed(2);
-    const usd = parseFloat(cotacoes.usd).toFixed(2);
-    const eur = parseFloat(cotacoes.eur).toFixed(2);
-    const cny = parseFloat(cotacoes.cny).toFixed(2);
 
-    
-    // Inserção das cotações dinamicamente no HTML
+    // Função para formatar cotação de uma moeda específica e inserir dinamicamente no HTML
+    const formatarCotacao = (valor, moeda) => formatarValorMonetario(parseFloat(valor).toFixed(2), moeda);
+
     criptoCard.innerHTML = `
-      <h2>${criptoInfo[cripto].nome}</h2>
-      <img src="${criptoInfo[cripto].logo}" alt="${criptoInfo[cripto].nome} Logo">
-      <div class="container-cripto">
-        <div id="descricao">
-          <p>${criptoInfo[cripto].descricao}</p>
-        </div>                 
-        <div id="cotacao">
-          <p>Cotação do dia: ${formatoBrasileiro}</p>
-          <p>BRL:  R$${brl}</p>
-          <p>USD:  US$${usd}</p>
-          <p>EUR:  €${eur}</p>
-          <p>CNY:  ¥${cny}</p>
+        <h2>${criptoInfo[cripto].nome}</h2>
+        <img src="${criptoInfo[cripto].logo}" alt="${criptoInfo[cripto].nome} Logo">
+        <div class="container-cripto">
+          <div id="descricao">
+            <details>
+              <summary>
+                <span class="linha">História</span>
+              </summary>
+              <p>${criptoInfo[cripto].descricao}</p>
+            </details>
+          </div>
+          <div id="cotacao">
+              <p>Data: ${data}<br>Hora: ${hora} </p>
+                <div id="details">
+                  <details>
+                    <summary><span class="linha">Cotação em Real</span></summary>
+                    <p>${formatarCotacao(cotacoes.brl, 'BRL')}</p>
+                  </details>
+                  <details>
+                    <summary><span class="linha">Cotação em Dólar</span></summary>
+                    <p>${formatarCotacao(cotacoes.usd, 'USD')}</p>
+                  </details>
+                  <details>
+                    <summary><span class="linha">Cotação em Euro</span></summary>
+                    <p>${formatarCotacao(cotacoes.eur, 'EUR')}</p>
+                  </details>
+                  <details>
+                    <summary><span class="linha">Cotação em Yuan</span></summary>
+                    <p>${formatarCotacao(cotacoes.cny, 'CNY')}</p>
+                  </details>
+                </div>
+            </div>                  
         </div>
-      </div>
-    `;
+      `;
     criptoContainer.appendChild(criptoCard);
   }
 }
 
-  // Função para filtrar o que o usuário digitou no input, deixando somente o card filtrado na tela
+// Função para filtrar as informações
 function filtrarInformacoes() {
   const inputFiltro = document.getElementById('inputFiltro');
+  const quantidadeCripto = document.getElementById('quantidadeInput');
   const filtroValue = inputFiltro.value.trim().toLowerCase();
 
-  // Adiciona a verificação para texto vazio
   if (filtroValue === '') {
     alert('Pesquise a criptomoeda desejada!');
     return;
   }
 
-  // for que percorre os cards e deixa somente o filtrado na tela
   for (const cripto in criptoInfo) {
     const criptoNome = criptoInfo[cripto].nome.toLowerCase();
     const card = document.getElementById(cripto);
 
     if (criptoNome.includes(filtroValue)) {
       card.style.display = 'block';
-
-      // Preenche automaticamente o campo de filtro com o nome da criptomoedaque foi digitada parcialmente
       inputFiltro.value = criptoInfo[cripto].nome;
+      quantidadeCripto.scrollIntoView({ behavior: 'smooth' });
     } else {
       card.style.display = 'none';
     }
   }
 }
 
-// Função para converter moeda, na verdade ela pega a cotação da moeda e multiplica para saber o total na respectiva meda escolhida
-
+// Função para converter moeda e inserir o resultado dinamicamente no html
 function converterMoeda() {
   const inputFiltro = document.getElementById('inputFiltro');
   const criptoOrigemSelect = inputFiltro.value.toLowerCase();
   const moedaDestinoSelect = document.getElementById('moedaDestinoSelect');
   const quantidadeInput = parseFloat(document.getElementById('quantidadeInput').value);
   const resultado = document.getElementById('valorConvertido');
-  const simboloMoedaDestino = obterSimboloMoeda(moedaDestinoSelect.value);
 
-  // Verifica se o campo de buscar criptomoeda está vazio
   if (inputFiltro.value.trim() === '') {
     alert('Primeiro pesquise a criptomoeda!');
-    
-    // Rola até o campo buscar criptomoeda
     inputFiltro.scrollIntoView({ behavior: 'smooth' });
-
     return;
   }
 
-  // Verifica se o campo quantidade de moedas está vazio
   if (isNaN(quantidadeInput) || quantidadeInput <= 0) {
     alert('Por favor, insira uma quantidade válida para calcular.');
     return;
   }
-
-  // Verifica se o usuário escolheu em qual moeda quer saber o valor das suas criptomoedas
 
   if (moedaDestinoSelect.value.trim() === 'select') {
     alert('Por favor, escolha uma moeda para fazer o cálculo.');
@@ -163,9 +169,8 @@ function converterMoeda() {
   const valorConvertido = quantidadeInput * cotacaoOrigem;
   const textoMoedaDestino = moedaDestinoSelect.options[moedaDestinoSelect.selectedIndex].text;
 
-  // Inserção do resultado da coversão da quantidade de criptomoedas para a moeda escolhida dinamicamente no HTML.
-  resultado.innerHTML = `O Valor de ${quantidadeInput} ${criptoOrigemSelect} em ${textoMoedaDestino} é: ${simboloMoedaDestino} ${valorConvertido.toFixed(2)}`;
+  resultado.innerHTML = `O Valor de ${quantidadeInput} ${criptoOrigemSelect} em ${textoMoedaDestino} é: ${formatarValorMonetario(valorConvertido, moedaDestinoSelect.value)}`;
 }
 
-// Chama as funções iniciais
+// Chamando as funções iniciais
 obterCotacoes().then(exibirCards);
