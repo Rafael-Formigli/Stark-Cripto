@@ -2,21 +2,31 @@
 <html lang="pt-br">
 
 <head>
+  <!-- Definição da codificação de caracteres e configuração da viewport para dispositivos móveis -->
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
+  <!-- Ícone da página e folha de estilos -->
   <link rel="shortcut icon" href="./assets/moedas3.png" type="image/x-icon">
+
+    <!-- Link para folha de estilos -->
   <link rel="stylesheet" href="./styles.css">
+  
+  <!-- Pré-conexão com o Google Fonts para otimização de carregamento -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <!-- Importação das fontes utilizadas no projeto -->
   <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@300;400;700&family=Playfair:wght@300&family=Poppins:ital,wght@0,100;0,300;0,400;0,500;0,600;0,700;1,400&family=Roboto:wght@100;300;400;500&display=swap" rel="stylesheet">
   
+  <!-- Importação da biblioteca Axios para requisições HTTP -->
   <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
+  <!-- Título da página -->
   <title>Stark Cripto</title>
 </head>
 
 <body>
+  <!-- Barra de navegação -->
   <nav>
     <ul>
       <li><a href="#">Quem Somos</a></li>
@@ -24,19 +34,27 @@
       <li><a href="#">Contato</a></li>
     </ul>
   </nav>
+
+  <!-- Título principal -->
   <h1>Stark Cripto Info</h1>
 
+  <!-- Conteúdo principal -->
   <main>
+    <!-- Seção para buscar informações sobre criptomoedas -->
     <section id="secaoBuscar">
+      <!-- Container com botões de busca e limpeza -->
       <div id="buttonContainer">
         <input type="text" id="inputFiltro" placeholder="Digite o nome da criptomoeda">
         <button onclick="filtrarInformacoes()">Buscar</button>
         <button onclick="limparInput()">Limpar</button>
       </div>
+      <!-- Container para exibição das informações sobre criptomoedas que será feita dinamicamente com o JavaScript -->
       <div id="criptoContainer"></div>
     </section>
 
+    <!-- Seção para converter moeda -->
     <section id="SecaoConverter">
+      <!-- Container com campos e botão para calcular a conversão -->
       <div id="containerCalculo">
         <input type="number" id="quantidadeInput" placeholder="Quantidade" min="0">
         <select id="moedaDestinoSelect">
@@ -47,17 +65,19 @@
           <option value="cny">Yuan</option>
         </select>
         <button onclick="converterMoeda()" id="buttonCalcular">Calcular</button>
+        <!-- Container para exibição do resultado da conversão que será feito dinamicamente com o JavaScript -->
         <p id="valorConvertido">Resultado:</p>
       </div>
     </section>
   </main>
 
+  <!-- Rodapé -->
   <footer>
     &copy; Rafael Formigli Programação.
   </footer>
 
+  <!-- Importação do script JavaScript -->
+  <script src="./script.js"></script>
 </body>
-
-<script src="./script.js"></script>
 
 </html>
