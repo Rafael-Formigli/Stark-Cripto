@@ -1,7 +1,12 @@
+
+/* Define a unidade de medida padrão para a fonte em 62.5% do tamanho padrão.
+   Isso facilita o uso de rem (root em) para unidades de medida 1 rem = 10px. */
 :root {
   font-size: 62.5%;
 }
 
+/* Zera as margens, preenchimentos e define a caixa de modelo de borda para todos os elementos.
+     Define a fonte padrão para 'Poppins' e sans-serif. */
 * {
   margin: 0;
   padding: 0;
@@ -9,6 +14,7 @@
   font-family: 'Poppins', sans-serif;
 }
 
+/* Estilos gerais para o Body. */
 body {
   font-size: 1.6rem;
   min-height: 100vh;
@@ -21,6 +27,7 @@ body {
   text-align: center;
 }
 
+/* Estilos para a barra de navegação fictícia, sem links ancorados. */
 nav {
   width: 100%;
   background-color: #be4444;
@@ -41,6 +48,7 @@ nav ul li a {
   font-weight: 700;
 }
 
+/* Estilos para o título principal h1. */
 h1 {
   text-align: center;
   color: #ff0000;
@@ -48,6 +56,7 @@ h1 {
   font-weight: 700;
 }
 
+/* Estilos para o container principal de criptomoedas. */
 #criptoContainer {
   display: flex;
   flex-wrap: wrap;
@@ -55,6 +64,7 @@ h1 {
   margin-bottom: 2rem;
 }
 
+/* Estilos para cada card de criptomoeda. */
 #criptoContainer>div {
   display: flex;
   flex-direction: column;
@@ -69,10 +79,12 @@ h1 {
   transition: 0.4s;
 }
 
+/* Estilos para animação de escala ao passar o mouse sobre um card. */
 #criptoContainer>div:hover {
-  transform: scale(1.01);
+  transform: scale(1.008);
 }
 
+/* Estilos para imagens das criptomoedas. */
 img {
   max-width: 50%;
   height: auto;
@@ -80,6 +92,7 @@ img {
   margin-bottom: 1rem;
 }
 
+/* Estilos para o container onde estão o inputFilter e 02 botões. */
 #buttonContainer {
   display: flex;
   justify-content: center;
@@ -88,6 +101,7 @@ img {
   margin-bottom: 1rem;
 }
 
+/* Estilos para os botões. */
 button {
   width: 6rem;
   background-color: #ff0000;
@@ -98,10 +112,12 @@ button {
   cursor: pointer;
 }
 
+/* Efeito hover para os botões. */
 button:hover {
   background-color: #cc0000;
 }
 
+/* Estilos para a div onde será apresentado o valor convertido. */
 #valorConvertido {
   width: 37rem;
   font-weight: bold;
@@ -112,6 +128,7 @@ button:hover {
   background-color: #000;
 }
 
+/* Estilo para campo de entrada filtro. */
 #inputFiltro {
   width: 22rem;
   text-align: center;
@@ -122,7 +139,7 @@ button:hover {
   background-color: #000;
   color: #fff;
 }
-
+/* Estilo para campo de entrada quantidade */
 #quantidadeInput{
   width: 12rem;
   text-align: center;
@@ -134,6 +151,7 @@ button:hover {
   color: #fff;
 }
 
+/* Estilo para campo de seleção. */
 select{
   width: 18rem;
   height: 3.9rem;
@@ -147,33 +165,75 @@ select{
   text-align: center;
 }
 
-.data {
-  font-size: 1.8rem;
-}
-
+/* Estilos para a seção contendo a história das criptomoedas. */
 #descricao {
-  width: 28rem;
-  height: 27rem;
-  padding: 1rem;
+  padding: 0.5rem;
   border-radius: 0.4rem;
   background-color: #813030;
   text-align: center;
-  line-height: 2.9rem;
+  cursor: url('./assets/cursor.png'), auto;  
 }
 
+ /* Estilos para a seção de cotações das criptomoedas. */
 #cotacao {
   width: 28rem;
   padding: 0.5rem;
   display: flex;
   flex-wrap: wrap;
-  align-items: center;
-  gap: 1.5rem;
-  justify-content: center;
+  align-items: left;
+  gap: 0.1rem;
+  justify-content: left;
   background-color: #813030;
   border-radius: 0.4rem;
-  margin-top: 0.5rem;
+  margin-top: 0.3rem;
+  text-align: left;
 }
 
+/* Estilos para o summary. */
+summary{
+  background-color: #6d2828;
+  border-radius: 0.4rem;
+  margin: 0.3rem;
+}
+
+/* Estilo para deixar a cotação mais a direita, destacada em relação a data e hora. */
+#details{
+  padding-left: 5rem;
+}
+
+/* Centraliza a cotação de da criptomoeda em cada moeda. */
+#details p{
+  text-align: center;
+}
+
+/* Estilo para a classe .linha e sua animação. */
+.linha {
+  position: relative;
+  cursor: pointer;
+}
+
+/* Estilo para a classe .linha e sua animação que faz a linha ficar abaixo de todo o texto porém invisível. */
+.linha::after {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  content: "";
+  height: 0.1rem;
+  width: 0;
+  background-color: rgb(54, 3, 3);
+  transition: 0.4s;
+}
+
+/* Estilo para a linha da animação ocupar todo o texto na velocidade do transition acima. */
+.linha:hover::after {
+  width: 100%;
+}
+
+#criptoContainer > div:last-child #details {
+  padding-bottom: 1rem;
+}
+
+/* Estilos para o rodapé fictício. */
 footer {
   width: 100%;
   background-color: #be4444;
@@ -186,12 +246,13 @@ footer {
   margin-top: 2rem; 
 }
 
+/* Estilos responsivos para telas menores que 932px. */
 @media(max-width: 932px) {
   img {
     max-width: 30%;
   }
 
-  
+
   #containerCalculo {
     display: flex;
     flex-direction: column;
@@ -199,8 +260,7 @@ footer {
   }
 
   #quantidadeInput, #moedaDestinoSelect, #buttonCalcular, #valorConvertido {
-    width: 23rem;
-    margin: 1rem 0;
+    width: 20rem;
+    margin: 0.5rem 0;
+    margin-top: 0.5rem;
   }
-
-}
