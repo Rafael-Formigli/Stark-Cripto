@@ -196,11 +196,6 @@ summary {
   margin: 0.3rem;
 }
 
-summary::-webkit-details-marker {
-  background: url(./assets/icone.png);
-  color: transparent;
-}
-
 /* Estilo para deixar a cotação mais a direita, destacada em relação a data e hora. */
 #details {
   padding-left: 5rem;
