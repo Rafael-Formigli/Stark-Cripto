@@ -1,3 +1,5 @@
+
+
 // função que retorna um objeto com o simbolo das moedas que será vinculado com o select de moedas.
 function obterSimboloMoeda(codigoMoeda) {
   const simbolos = {
@@ -9,7 +11,7 @@ function obterSimboloMoeda(codigoMoeda) {
   return simbolos[codigoMoeda] || '';
 }
 
-  // Objeto com as informações das criptomoedas
+// Objeto com as informações das criptomoedas
 const criptoInfo = {
   bitcoin: { nome: "Bitcoin", descricao: "Bitcoin foi criado em 2009 por uma pessoa (ou grupo) usando o pseudônimo Satoshi Nakamoto. É a primeira e mais conhecida criptomoeda, sendo descentralizada e operando sem uma autoridade central ou governo.", logo: "./assets/bitcoin.webp", cotacoes: {} },
   ethereum: { nome: "Ethereum", descricao: "Ethereum é uma plataforma open source de blockchain que permite a criação de contratos inteligentes. Foi proposto por Vitalik Buterin em 2013 e desenvolvido a partir de 2014, com o lançamento em 2015.", logo: "./assets/ethereum.webp", cotacoes: {} },
@@ -25,8 +27,11 @@ const criptoInfo = {
 
 // Função para limpar os campos de entrada e exibir todos os cards
 function limparInput() {
-  document.getElementById('inputFiltro').value = '';
-  document.getElementById('quantidadeInput').value = '';
+  const selectFiltro = document.getElementById('selectFiltro');
+  const quantidadeCripto = document.getElementById('quantidadeInput');
+
+  selectFiltro.value = 'select1';
+  quantidadeCripto.value = '';
   document.getElementById('moedaDestinoSelect').value = 'select';
 
   for (const cripto in criptoInfo) {
@@ -78,54 +83,56 @@ function exibirCards() {
     const formatarCotacao = (valor, moeda) => formatarValorMonetario(parseFloat(valor).toFixed(2), moeda);
 
     criptoCard.innerHTML = `
-        <h2>${criptoInfo[cripto].nome}</h2>
-        <img src="${criptoInfo[cripto].logo}" alt="${criptoInfo[cripto].nome} Logo">
-        <div class="container-cripto">
-          <div id="descricao">
+      <h2>${criptoInfo[cripto].nome}</h2>
+      <img src="${criptoInfo[cripto].logo}" alt="${criptoInfo[cripto].nome} Logo">
+      <div class="container-cripto">
+        <div id="descricao">
+          <details>
+            <summary>
+              <span class="linha">História</span>
+            </summary>
+            <p>${criptoInfo[cripto].descricao}</p>
+          </details>
+        </div>
+        <div id="cotacao">
+          <p>Data: ${data}<br>Hora: ${hora} </p>
+          <div id="details">
             <details>
-              <summary>
-                <span class="linha">História</span>
-              </summary>
-              <p>${criptoInfo[cripto].descricao}</p>
+              <summary><span class="linha">Cotação em Real</span></summary>
+              <p>${formatarCotacao(cotacoes.brl, 'BRL')}</p>
+            </details>
+            <details>
+              <summary><span class="linha">Cotação em Dólar</span></summary>
+              <p>${formatarCotacao(cotacoes.usd, 'USD')}</p>
+            </details>
+            <details>
+              <summary><span class="linha">Cotação em Euro</span></summary>
+              <p>${formatarCotacao(cotacoes.eur, 'EUR')}</p>
+            </details>
+            <details>
+              <summary><span class="linha">Cotação em Yuan</span></summary>
+              <p>${formatarCotacao(cotacoes.cny, 'CNY')}</p>
             </details>
           </div>
-          <div id="cotacao">
-              <p>Data: ${data}<br>Hora: ${hora} </p>
-                <div id="details">
-                  <details>
-                    <summary><span class="linha">Cotação em Real</span></summary>
-                    <p>${formatarCotacao(cotacoes.brl, 'BRL')}</p>
-                  </details>
-                  <details>
-                    <summary><span class="linha">Cotação em Dólar</span></summary>
-                    <p>${formatarCotacao(cotacoes.usd, 'USD')}</p>
-                  </details>
-                  <details>
-                    <summary><span class="linha">Cotação em Euro</span></summary>
-                    <p>${formatarCotacao(cotacoes.eur, 'EUR')}</p>
-                  </details>
-                  <details>
-                    <summary><span class="linha">Cotação em Yuan</span></summary>
-                    <p>${formatarCotacao(cotacoes.cny, 'CNY')}</p>
-                  </details>
-                </div>
-            </div>                  
-        </div>
-      `;
+        </div>                  
+      </div>
+    `;
     criptoContainer.appendChild(criptoCard);
   }
 }
 
 // Função para filtrar as informações
 function filtrarInformacoes() {
-  const inputFiltro = document.getElementById('inputFiltro');
+  const selectFiltro = document.getElementById('selectFiltro');
   const quantidadeCripto = document.getElementById('quantidadeInput');
-  const filtroValue = inputFiltro.value.trim().toLowerCase();
+  const filtroValue = selectFiltro.value.trim().toLowerCase();
 
-  if (filtroValue === '') {
+  if (filtroValue === 'select1') {
     alert('Pesquise a criptomoeda desejada!');
     return;
   }
+
+  let criptoEncontrada = false;
 
   for (const cripto in criptoInfo) {
     const criptoNome = criptoInfo[cripto].nome.toLowerCase();
@@ -133,25 +140,30 @@ function filtrarInformacoes() {
 
     if (criptoNome.includes(filtroValue)) {
       card.style.display = 'block';
-      inputFiltro.value = criptoInfo[cripto].nome;
+      criptoEncontrada = true;
       quantidadeCripto.scrollIntoView({ behavior: 'smooth' });
     } else {
       card.style.display = 'none';
     }
   }
+
+  // Mantém o nome da criptomoeda no campo de seleção se uma correspondência for encontrada
+  if (criptoEncontrada) {
+    selectFiltro.value = filtroValue;
+  }
 }
 
-// Função para converter moeda e inserir o resultado dinamicamente no html
+// Função para converter moeda e inserir o resultado dinamicamente no HTML
 function converterMoeda() {
-  const inputFiltro = document.getElementById('inputFiltro');
-  const criptoOrigemSelect = inputFiltro.value.toLowerCase();
+  const selectFiltro = document.getElementById('selectFiltro');
+  const criptoOrigemSelect = selectFiltro.value.toLowerCase();
   const moedaDestinoSelect = document.getElementById('moedaDestinoSelect');
   const quantidadeInput = parseFloat(document.getElementById('quantidadeInput').value);
   const resultado = document.getElementById('valorConvertido');
 
-  if (inputFiltro.value.trim() === '') {
+  if (selectFiltro.value.trim() === 'select1') {
     alert('Primeiro pesquise a criptomoeda!');
-    inputFiltro.scrollIntoView({ behavior: 'smooth' });
+    selectFiltro.scrollIntoView({ behavior: 'smooth' });
     return;
   }
 
