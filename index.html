@@ -5,19 +5,21 @@
   <!-- Definição da codificação de caracteres e configuração da viewport para dispositivos móveis -->
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  
+
   <!-- Ícone da página e folha de estilos -->
   <link rel="shortcut icon" href="./assets/moedas3.png" type="image/x-icon">
 
-    <!-- Link para folha de estilos -->
+  <!-- Link para folha de estilos -->
   <link rel="stylesheet" href="./styles.css">
-  
+
   <!-- Pré-conexão com o Google Fonts para otimização de carregamento -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <!-- Importação das fontes utilizadas no projeto -->
-  <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@300;400;700&family=Playfair:wght@300&family=Poppins:ital,wght@0,100;0,300;0,400;0,500;0,600;0,700;1,400&family=Roboto:wght@100;300;400;500&display=swap" rel="stylesheet">
-  
+  <link
+    href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@300;400;700&family=Playfair:wght@300&family=Poppins:ital,wght@0,100;0,300;0,400;0,500;0,600;0,700;1,400&family=Roboto:wght@100;300;400;500&display=swap"
+    rel="stylesheet">
+
   <!-- Importação da biblioteca Axios para requisições HTTP -->
   <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
@@ -42,9 +44,21 @@
   <main>
     <!-- Seção para buscar informações sobre criptomoedas -->
     <section id="secaoBuscar">
-      <!-- Container com input e botões de busca e limpeza -->
+      <!-- Container com botões de busca e limpeza -->
       <div id="buttonContainer">
-        <input type="text" id="inputFiltro" placeholder="Digite o nome da criptomoeda">
+        <select id="selectFiltro">
+          <option value="select1" selected disabled>Selecione a CriptoMoeda</option>
+          <option value="bitcoin">Bitcoin</option>
+          <option value="ethereum">Ethereum</option>
+          <option value="litecoin">Litecoin</option>
+          <option value="dogecoin">Dogecoin</option>
+          <option value="binanceCoin">Binance Coin</option>
+          <option value="cardano">Cardano</option>
+          <option value="polkadot">Polkadot</option>
+          <option value="ripple">Ripple</option>
+          <option value="uniswap">Uniswap</option>
+          <option value="chainlink">Chainlink</option>
+        </select>
         <button onclick="filtrarInformacoes()">Buscar</button>
         <button onclick="limparInput()">Limpar</button>
       </div>
