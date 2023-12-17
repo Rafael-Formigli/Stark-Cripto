@@ -128,7 +128,7 @@ button:hover {
 }
 
 /* Estilo para campo de entrada filtro. */
-#inputFiltro {
+#selectFiltro {
   width: 22rem;
   text-align: center;
   margin: 0.8rem 0;
