@@ -84,34 +84,34 @@ function exibirCards() {
 
     criptoCard.innerHTML = `
       <h2>${criptoInfo[cripto].nome}</h2>
-      <img src="${criptoInfo[cripto].logo}" alt="${criptoInfo[cripto].nome} Logo">
+      <img src="${criptoInfo[cripto].logo}" aria-hidden=“true” alt="imagem da logo da CriptoMoeda${criptoInfo[cripto].nome}">
       <div class="container-cripto">
         <div id="descricao">
-          <details>
+          <details >
             <summary>
-              <span class="linha">História</span>
+              <span tabindex="7" aria-expanded="false" role="button" class="linha">História</span>
             </summary>
-            <p>${criptoInfo[cripto].descricao}</p>
+            <p aria-label="História da Criptomoeda">${criptoInfo[cripto].descricao}</p>
           </details>
         </div>
         <div id="cotacao">
-          <p>Data: ${data}<br>Hora: ${hora} </p>
+          <p aria-details>Data: ${data}<br>Hora: ${hora} </p>
           <div id="details">
             <details>
-              <summary><span class="linha">Cotação em Real</span></summary>
-              <p>${formatarCotacao(cotacoes.brl, 'BRL')}</p>
+              <summary><span aria-expanded="false" role="button" class="linha" tabindex="8">Cotação em Real</span></summary>
+              <p aria-label="Cotação em Real">${formatarCotacao(cotacoes.brl, 'BRL')}</p>
             </details>
             <details>
-              <summary><span class="linha">Cotação em Dólar</span></summary>
-              <p>${formatarCotacao(cotacoes.usd, 'USD')}</p>
+              <summary><span aria-expanded="false" role="button" tabindex="9" class="linha">Cotação em Dólar</span></summary>
+              <p aria-label="Cotação em Dólar" >${formatarCotacao(cotacoes.usd, 'USD')}</p>
             </details>
             <details>
-              <summary><span class="linha">Cotação em Euro</span></summary>
-              <p>${formatarCotacao(cotacoes.eur, 'EUR')}</p>
+              <summary><span aria-expanded="false" role="button" tabindex="10" class="linha">Cotação em Euro</span></summary>
+              <p aria-label="Cotação em Euro">${formatarCotacao(cotacoes.eur, 'EUR')}</p>
             </details>
             <details>
-              <summary><span class="linha">Cotação em Yuan</span></summary>
-              <p>${formatarCotacao(cotacoes.cny, 'CNY')}</p>
+              <summary><span aria-expanded="false" role="button" tabindex="11"class="linha">Cotação em Yuan</span></summary>
+              <p aria-label="Cotação em Yuan Chinês">${formatarCotacao(cotacoes.cny, 'CNY')}</p>
             </details>
           </div>
         </div>                  
