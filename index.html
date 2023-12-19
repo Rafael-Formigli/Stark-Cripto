@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-br" xmlns="http://www.w3.org/1999/xhtml">
 
 <head>
   <!-- Definição da codificação de caracteres e configuração da viewport para dispositivos móveis -->
@@ -29,11 +29,11 @@
 
 <body>
   <!-- Barra de navegação -->
-  <nav>
+  <nav role="navigation">
     <ul>
-      <li><a href="#">Quem Somos</a></li>
-      <li><a href="#">Login</a></li>
-      <li><a href="#">Contato</a></li>
+      <li><a tabindex="1" aria-label="Link para a página, quem somos." href="#" aria-current="page">Quem Somos</a></li>
+      <li><a tabindex="2" aria-label="Link para fazer o login em nossa página" href="#">Login</a></li>
+      <li><a tabindex="3" aria-label="Link para os veículos de contato com nossa empresa" href="#">Contato</a></li>
     </ul>
   </nav>
 
@@ -46,8 +46,8 @@
     <section id="secaoBuscar">
       <!-- Container com botões de busca e limpeza -->
       <div id="buttonContainer">
-        <select id="selectFiltro">
-          <option value="select1" selected disabled>Selecione a CriptoMoeda</option>
+        <select id="selectFiltro" tabindex="4" aria-label="Local onde deverá escolher a criptomoeda para ver a cotação referente a 01 unidade. Esta será a criptomoeda utilizada como parâmetro para o cálculo de conversão realizado abaixo.">
+          <option value="select1" selected aria-disabled="true" disabled>Selecione a CriptoMoeda</option>
           <option value="bitcoin">Bitcoin</option>
           <option value="ethereum">Ethereum</option>
           <option value="litecoin">Litecoin</option>
@@ -59,34 +59,34 @@
           <option value="uniswap">Uniswap</option>
           <option value="chainlink">Chainlink</option>
         </select>
-        <button onclick="filtrarInformacoes()">Buscar</button>
-        <button onclick="limparInput()">Limpar</button>
+        <button tabindex="5" onclick="filtrarInformacoes()" role="button" aria-label="Botão para buscar o Card com informações sobre uma criptomoeda">Buscar</button>
+        <button tabindex="6" onclick="limparInput()" role="button" aria-label="Limpar campo de busca. deixar todos os cards de criptomoedas visíveis na tela.">Limpar</button>
       </div>
       <!-- Container para exibição das informações sobre criptomoedas que será feita dinamicamente com o JavaScript -->
-      <div id="criptoContainer"></div>
+      <div id="criptoContainer" aria-live="polite" aria-atomic="true" role="region"></div>
     </section>
 
     <!-- Seção para converter moeda -->
     <section id="SecaoConverter">
       <!-- Container com campos e botão para calcular a conversão -->
       <div id="containerCalculo">
-        <input type="number" id="quantidadeInput" placeholder="Quantidade" min="0">
-        <select id="moedaDestinoSelect">
-          <option value="select" selected disabled>Selecione a Moeda</option>
+        <input type="number" id="quantidadeInput" tabindex="12" aria-label="Local onde deverá colocar a quantidade de suas criptomoedas que deseja fazer o cálculo da conversão." aria-placeholder="Quantidade" placeholder="Quantidade" min="0">
+        <select id="moedaDestinoSelect" aria-label="Select onde deverá escolher a moeda para a qual deverá converter a sua criptomoeda" tabindex="13">
+          <option value="select" selected aria-disabled="true" disabled>Selecione a Moeda</option>
           <option value="brl">Real</option>
           <option value="usd">Dólar</option>
           <option value="eur">Euro</option>
           <option value="cny">Yuan</option>
         </select>
-        <button onclick="converterMoeda()" id="buttonCalcular">Calcular</button>
+        <button onclick="converterMoeda()" id="buttonCalcular" tabindex="14" role="button" aria-label="Botão para calcular a criptomoeda escolhida">Calcular</button>
         <!-- Container para exibição do resultado da conversão que será feito dinamicamente com o JavaScript -->
-        <p id="valorConvertido">Resultado:</p>
+        <p id="valorConvertido" aria-live="assertive" tabindex="15" aria-label="Resultado da conversão">Resultado:</p>
       </div>
     </section>
   </main>
 
   <!-- Rodapé -->
-  <footer>
+  <footer aria-details="Informações de direitos autorais e desenvolvedor">
     &copy; Rafael Formigli Programação.
   </footer>
 
